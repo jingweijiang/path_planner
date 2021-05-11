@@ -44,9 +44,9 @@ void message(const T& msg, T1 val = T1()) {
 */
 int main(int argc, char** argv) {
 
-  // message<string, int>("Hybrid A* Search\nA pathfinding algorithm on grids, by Karl Kurzer");
+  message<string, int>("Hybrid A* Search\nA pathfinding algorithm on grids, by Karl Kurzer");
 
-  // message("cell size: ", HybridAStar::Constants::cellSize);
+  message("cell size: ", HybridAStar::Constants::cellSize);
 
   if (HybridAStar::Constants::manual) {
     message("mode: ", "manual");
