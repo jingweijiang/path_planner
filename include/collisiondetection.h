@@ -38,7 +38,8 @@ class CollisionDetection {
      \brief evaluates whether the configuration is safe
      \return true if it is traversable, else false
   */
-  template<typename T> bool isTraversable(const T* node) {
+  template<typename T> 
+  bool isTraversable(const T* node) {
     /* Depending on the used collision checking mechanism this needs to be adjusted
        standard: collision checking using the spatial occupancy enumeration
        other: collision checking using the 2d costmap and the navigation stack

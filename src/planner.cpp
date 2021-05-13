@@ -57,7 +57,9 @@ void Planner::setMap(const nav_msgs::OccupancyGrid::Ptr map) {
   bool** binMap;
   binMap = new bool*[width];
 
-  for (int x = 0; x < width; x++) { binMap[x] = new bool[height]; }
+  for (int x = 0; x < width; x++) { 
+    binMap[x] = new bool[height];
+  }
 
   for (int x = 0; x < width; ++x) {
     for (int y = 0; y < height; ++y) {

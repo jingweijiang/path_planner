@@ -30,15 +30,18 @@ void DynamicVoronoi::initializeEmpty(int _sizeX, int _sizeY, bool initGridMap) {
     delete[] data;
   }
   data = new dataCell*[sizeX];
-  for (int x=0; x<sizeX; x++) data[x] = new dataCell[sizeY];
+  for (int x=0; x<sizeX; x++)
+    data[x] = new dataCell[sizeY];
 
   if (initGridMap) {
     if (gridMap) {
-      for (int x=0; x<sizeX; x++) delete[] gridMap[x];
+      for (int x=0; x<sizeX; x++) 
+        delete[] gridMap[x];
       delete[] gridMap;
     }
     gridMap = new bool*[sizeX];
-    for (int x=0; x<sizeX; x++) gridMap[x] = new bool[sizeY];
+    for (int x=0; x<sizeX; x++) 
+      gridMap[x] = new bool[sizeY];
   }
   
   dataCell c;
@@ -72,12 +75,14 @@ void DynamicVoronoi::initializeMap(int _sizeX, int _sizeY, bool** _gridMap) {
           bool isSurrounded = true;
           for (int dx=-1; dx<=1; dx++) {
             int nx = x+dx;
-            if (nx<=0 || nx>=sizeX-1) continue;
+            if (nx<=0 || nx>=sizeX-1) 
+              continue;
             for (int dy=-1; dy<=1; dy++) {
-              if (dx==0 && dy==0) continue;
+              if (dx==0 && dy==0) 
+                continue;
               int ny = y+dy;
-              if (ny<=0 || ny>=sizeY-1) continue;
-
+              if (ny<=0 || ny>=sizeY-1) 
+                continue;
               if (!gridMap[nx][ny]) {
                 isSurrounded = false;
                 break;
@@ -92,7 +97,10 @@ void DynamicVoronoi::initializeMap(int _sizeX, int _sizeY, bool** _gridMap) {
             c.voronoi=occupied;
             c.queueing = fwProcessed;
             data[x][y] = c;
-          } else setObstacle(x,y);
+          }
+          else{
+            setObstacle(x,y);
+          } 
         }
       }
     }
@@ -261,7 +269,9 @@ void DynamicVoronoi::commitAndColorize(bool updateRealDist) {
     dataCell c = data[x][y];
 
     if(c.queueing != fwQueued){
-      if (updateRealDist) c.dist = 0;
+      if (updateRealDist) {
+        c.dist = 0;
+      }
       c.sqdist = 0;
       c.obstX = x;
       c.obstY = y;

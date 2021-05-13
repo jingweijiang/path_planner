@@ -254,10 +254,9 @@ float aStar(Node2D& start,
   // VISUALIZATION DELAY
   ros::Duration d(0.001);
 
-  boost::heap::binomial_heap<Node2D*,
-        boost::heap::compare<CompareNodes>> O;
+  boost::heap::binomial_heap< Node2D*,boost::heap::compare<CompareNodes> > O;
   // update h value
-  start.updateH(goal);
+  start.updateH(goal);  // 欧式距离
   // mark start as open
   start.open();
   // push on priority queue
@@ -416,7 +415,7 @@ void updateH(Node3D& start, const Node3D& goal, Node2D* nodes2D, float* dubinsLo
 
   // if reversing is active use a
   if (Constants::reverse && !Constants::dubins) {
-    //    ros::Time t0 = ros::Time::now();
+    // ros::Time t0 = ros::Time::now();
     ompl::base::ReedsSheppStateSpace reedsSheppPath(Constants::r);
     State* rsStart = (State*)reedsSheppPath.allocState();
     State* rsEnd = (State*)reedsSheppPath.allocState();
@@ -425,13 +424,13 @@ void updateH(Node3D& start, const Node3D& goal, Node2D* nodes2D, float* dubinsLo
     rsEnd->setXY(goal.getX(), goal.getY());
     rsEnd->setYaw(goal.getT());
     reedsSheppCost = reedsSheppPath.distance(rsStart, rsEnd);
-    //    ros::Time t1 = ros::Time::now();
+    // ros::Time t1 = ros::Time::now();
+    // std::cout << " reedsSheppPath total cost(s)" << (t1 - t0).toSec() << std::endl;
     //    ros::Duration d(t1 - t0);
     //    std::cout << "calculated Reed-Sheep Heuristic in ms: " << d * 1000 << std::endl;
   }
 
-  // if twoD heuristic is activated determine shortest path
-  // unconstrained with obstacles
+  // if twoD heuristic is activated determine shortest path  unconstrained with obstacles
   if (Constants::twoD && !nodes2D[(int)start.getY() * width + (int)start.getX()].isDiscovered()) {
     //    ros::Time t0 = ros::Time::now();
     // create a 2d start node
